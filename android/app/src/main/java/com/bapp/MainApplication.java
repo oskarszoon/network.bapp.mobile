@@ -3,6 +3,7 @@ package com.bapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import li.yunqi.rnsecurestorage.RNSecureStoragePackage;
 import com.imagepicker.ImagePickerPackage;
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFSPackage(),
             new FastImageViewPackage(),
             new RNSecureStoragePackage(),
             new ImagePickerPackage(),

@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import {
   SafeAreaView, ScrollView, Image,
 } from 'react-native';
-import { Transition } from 'react-navigation-fluid-transitions'
+import { Transition } from 'react-navigation-fluid-transitions';
 import ImagePicker from 'react-native-image-picker';
+import { Card } from 'react-native-elements';
+import FastImage from 'react-native-fast-image';
+
 import RoundedButton from '../Components/RoundedButton';
 
 import { Images } from '../Themes';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
-import { Card } from 'react-native-elements'
-import FastImage from 'react-native-fast-image'
 
 export default class BappItemAdd extends Component {
   constructor(props) {
@@ -19,29 +20,27 @@ export default class BappItemAdd extends Component {
 
     this.uploadImage = this.uploadImage.bind(this);
     this.submit = this.submit.bind(this);
+
+    this.state = {
+      image: null,
+    };
   }
 
   uploadImage() {
     const options = {
       title: 'Select photo',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
+      maxWidth: 300,
+      maxHeight: 300,
     };
     ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        // console.log('User cancelled image picker');
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
+        // console.log('ImagePicker Error: ', response.error);
       } else {
-        const source = { uri: response.uri };
-        console.log('source', source);
-
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        this.setState({
+          image: response,
+        });
       }
     });
   }

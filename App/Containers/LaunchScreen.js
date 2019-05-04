@@ -50,11 +50,11 @@ export default class LaunchScreen extends Component {
         <ScrollView style={styles.container}>
           {bapps.map((bapp) => {
             return (
-              <Transition shared={`bapp-card-${bapp.txId}`}>
-                <Card
-                  key={bapp.txId}
-                  title={bapp.name}
-                >
+              <Transition
+                key={bapp.txId}
+                shared={`bapp-card-${bapp.txId}`}
+              >
+                <Card title={bapp.name}>
                   <FastImage
                     style={{
                       width: '100%',

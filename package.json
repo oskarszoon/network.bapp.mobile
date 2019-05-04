@@ -5,8 +5,9 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && npm cache clean --force",
+    "clean": "watchman watch-del-all rm -rf $TMPDIR/react-* && && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/",
     "clean:android": "cd android/ && ./gradlew clean && cd .. && react-native run-android",
+    "clean:ios": "rm -rf ios/build",
     "newclear": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build && rm -rf node_modules/ && npm cache clean --force && npm i",
     "test:watch": "jest --watch",
     "updateSnapshot": "jest --updateSnapshot",
@@ -22,8 +23,6 @@
     "lintdiff": "git diff --name-only --cached --relative | grep '\\.js$' | xargs standard | snazzy",
     "fixcode": "standard --fix",
     "git-hook": "npm run lint -s && npm run test -s",
-    "clean": "rm -rf ios/build ",
-    "clean-cache": "watchman watch-del-all && rm -rf $TMPDIR/react-native-packager-cache-* && rm -rf $TMPDIR/metro-bundler-cache-* && rm -rf node_modules/",
     "postinstall": "test -n \"$NOYARNPOSTINSTALL\" || yarn build-meteor",
     "build-meteor": "git submodule init && git submodule update && meteor-client bundle -c meteor-client.config.json"
   },
@@ -46,6 +45,7 @@
     "react-native-device-info": "^1.6.1",
     "react-native-elements": "^1.1.0",
     "react-native-fast-image": "^5.4.2",
+    "react-native-fs": "^2.13.3",
     "react-native-gesture-handler": "1.0.9",
     "react-native-i18n": "2.0.14",
     "react-native-image-picker": "^0.28.1",

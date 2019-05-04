@@ -8,6 +8,7 @@ import { Card } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
 import RoundedButton from '../Components/RoundedButton';
+import { submitBappTransaction } from '../Lib/bapp';
 
 import { Images } from '../Themes';
 
@@ -49,11 +50,15 @@ export default class BappItemAdd extends Component {
     const { navigation } = this.props;
 
     // TODO: save the stuff
-
-    // Fake timeout
-    setTimeout(() => {
-      navigation.goBack();
-    }, 1000);
+    const bapp = navigation.getParam('bapp');
+    console.log('submitBappTransaction', bapp, this.state);
+    submitBappTransaction(bapp, this.state, (err) => {
+      if (err) {
+        // TODO error handling
+      } else {
+        navigation.goBack();
+      }
+    });
   }
 
   render() {

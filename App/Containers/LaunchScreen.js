@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView, ScrollView, Image, Text,
+  SafeAreaView, ScrollView, Image,
 } from 'react-native';
-import { Card, Button, Icon } from 'react-native-elements';
+import { Card } from 'react-native-elements';
+import FastImage from 'react-native-fast-image';
+import { Transition } from 'react-navigation-fluid-transitions';
 
 import DevscreensButton from '../../ignite/DevScreens/DevscreensButton.js';
 import RoundedButton from '../Components/RoundedButton';
@@ -48,12 +50,23 @@ export default class LaunchScreen extends Component {
         <ScrollView style={styles.container}>
           {bapps.map((bapp) => {
             return (
-              <Card
-                title={bapp.name}
-                image={{ uri: bapp.definition.logo }}
-              >
-                <RoundedButton onPress={this.openAddScreen.bind(this, bapp)}>Post</RoundedButton>
-              </Card>
+              <Transition shared={`bapp-card-${bapp.txId}`}>
+                <Card
+                  key={bapp.txId}
+                  title={bapp.name}
+                >
+                  <FastImage
+                    style={{
+                      width: '100%',
+                      height: 80,
+                    }}
+                    source={{
+                      uri: bapp.definition.logo,
+                    }}
+                  />
+                  <RoundedButton onPress={this.openAddScreen.bind(this, bapp)}>Post</RoundedButton>
+                </Card>
+              </Transition>
             );
           })}
           <DevscreensButton />

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView, ScrollView, Image, Text,
+  SafeAreaView, ScrollView, Image,
 } from 'react-native';
+import { Transition } from 'react-navigation-fluid-transitions'
 import ImagePicker from 'react-native-image-picker';
 import RoundedButton from '../Components/RoundedButton';
 
@@ -9,6 +10,8 @@ import { Images } from '../Themes';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
+import { Card } from 'react-native-elements'
+import FastImage from 'react-native-fast-image'
 
 export default class BappItemAdd extends Component {
   constructor(props) {
@@ -61,8 +64,22 @@ export default class BappItemAdd extends Component {
     return (
       <SafeAreaView style={styles.mainContainer}>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode="stretch" />
-        <Text>{bapp.name}</Text>
-        <Text>Bapp item add</Text>
+        <Transition shared={`bapp-card-${bapp.txId}`} appear="scale">
+          <Card
+            key={bapp.txId}
+            title={bapp.name}
+          >
+            <FastImage
+              style={{
+                width: '100%',
+                height: 80,
+              }}
+              source={{
+                uri: bapp.definition.logo,
+              }}
+            />
+          </Card>
+        </Transition>
         <ScrollView style={styles.container}>
           <RoundedButton onPress={this.uploadImage}>
             Upload image

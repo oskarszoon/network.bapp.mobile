@@ -61,6 +61,7 @@
 		91B1F3190F0B4DF1A0136047 /* libRNI18n-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5549FD4D47AD48AE92BAFB17 /* libRNI18n-tvOS.a */; };
 		2DB0F977FE3E43BEB139E622 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F3179C325624AFA869DA4F0 /* libRNDeviceInfo.a */; };
 		303094FB50554A45B48B4B19 /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFE39B7DC240491D8808EF21 /* libRNDeviceInfo-tvOS.a */; };
+		1B80637B2B4548ABA980ED5C /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76A494DE0B7F4E87A94E322D /* libRNImagePicker.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -394,6 +395,8 @@
 		81DA33510F1E4BF8B0D26FBC /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; name = "RNDeviceInfo.xcodeproj"; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		9F3179C325624AFA869DA4F0 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo.a"; path = "libRNDeviceInfo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		FFE39B7DC240491D8808EF21 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo-tvOS.a"; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		B78BF8B02D4947489A57A34C /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		76A494DE0B7F4E87A94E322D /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +429,7 @@
 				19B1F67443E44594A709DD20 /* libRNVectorIcons.a in Frameworks */,
 				6F8B24F97FA946AE8A10A09A /* libRNI18n.a in Frameworks */,
 				2DB0F977FE3E43BEB139E622 /* libRNDeviceInfo.a in Frameworks */,
+				1B80637B2B4548ABA980ED5C /* libRNImagePicker.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,6 +626,7 @@
 				AA19C50C51674A969C12CEE5 /* RNVectorIcons.xcodeproj */,
 				1E6A26001F1D42549D55BD7D /* RNI18n.xcodeproj */,
 				81DA33510F1E4BF8B0D26FBC /* RNDeviceInfo.xcodeproj */,
+				B78BF8B02D4947489A57A34C /* RNImagePicker.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1295,6 +1300,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1302,6 +1308,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Debug;
@@ -1330,6 +1337,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1337,6 +1345,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Release;
@@ -1363,6 +1372,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Debug;
@@ -1388,6 +1398,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Release;
@@ -1424,6 +1435,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1431,6 +1443,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Debug;
@@ -1467,6 +1480,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1474,6 +1488,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Release;
@@ -1509,6 +1524,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1516,6 +1532,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Debug;
@@ -1551,6 +1568,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1558,6 +1576,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-device-info/ios/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-image-picker/ios",
 				);
 			};
 			name = Release;

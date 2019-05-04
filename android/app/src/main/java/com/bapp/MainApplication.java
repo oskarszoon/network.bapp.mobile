@@ -3,6 +3,7 @@ package com.bapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import li.yunqi.rnsecurestorage.RNSecureStoragePackage;
 import com.imagepicker.ImagePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSecureStoragePackage(),
             new ImagePickerPackage(),
             new RNDeviceInfo(),
             new RNI18nPackage(),

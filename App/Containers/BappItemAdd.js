@@ -62,7 +62,6 @@ export default class BappItemAdd extends Component {
 
     return (
       <SafeAreaView style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode="stretch" />
         <Transition shared={`bapp-card-${bapp.txId}`} appear="scale">
           <Card
             key={bapp.txId}

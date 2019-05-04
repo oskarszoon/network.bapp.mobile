@@ -46,7 +46,6 @@ export default class LaunchScreen extends Component {
 
     return (
       <SafeAreaView style={styles.mainContainer}>
-        <Image source={Images.background} style={styles.backgroundImage} resizeMode="stretch" />
         <ScrollView style={styles.container}>
           {bapps.map((bapp) => {
             return (

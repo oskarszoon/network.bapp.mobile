@@ -10151,6 +10151,11 @@ react-native-secure-storage@^0.1.2:
   resolved "https://registry.yarnpkg.com/react-native-secure-storage/-/react-native-secure-storage-0.1.2.tgz#5c04b27ce1125a6fd6e24f6c55d0d47ab0672059"
   integrity sha512-LAuOZA2ZjVCVt+mMRE0cghsn0O6egHJk4Flp3pHC/mpDFxRmuhYKrqTruNFJD6Lhf4UtDLve+TPoD1et4KusTw==
 
+react-native-splash-screen@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
+  integrity sha512-Ls9qiNZzW/OLFoI25wfjjAcrf2DZ975hn2vr6U9gyuxi2nooVbzQeFoQS5vQcbCt9QX5NY8ASEEAtlLdIa6KVg==
+
 react-native-status-bar-height@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.3.1.tgz#b92ce9112c2367290847ac11284d9d84a6330169"

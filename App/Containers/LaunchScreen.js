@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView, ScrollView, Image,
+  SafeAreaView, ScrollView, ActivityIndicator, View,
 } from 'react-native';
 import { Card } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
@@ -8,8 +8,6 @@ import { Transition } from 'react-navigation-fluid-transitions';
 
 import DevscreensButton from '../../ignite/DevScreens/DevscreensButton.js';
 import RoundedButton from '../Components/RoundedButton';
-
-import { Images } from '../Themes';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
@@ -19,19 +17,18 @@ export default class LaunchScreen extends Component {
     super(props);
 
     this.state = {
+      loading: true,
       bapps: [],
     };
   }
 
   componentDidMount() {
-    fetch('http://localhost:9001/bapps/search/', {
-      method: 'GET',
-    }).then((response) => { return response.json(); })
-      .then((response) => {
-        this.setState({
-          bapps: response.data,
-        });
+    Meteor.call('bapps/search', '', (err, bapps) => {
+      this.setState({
+        loading: false,
+        bapps,
       });
+    });
   }
 
   openAddScreen(bapp) {
@@ -42,10 +39,15 @@ export default class LaunchScreen extends Component {
   }
 
   render() {
-    const { bapps = [] } = this.state;
+    const { bapps, loading } = this.state;
 
-    return (
-      <SafeAreaView style={styles.mainContainer}>
+    let content = (
+      <View style={styles.loading_container}>
+        <ActivityIndicator size="large" color="#abadb1" />
+      </View>
+    );
+    if (!loading) {
+      content = (
         <ScrollView style={styles.container}>
           {bapps.map((bapp) => {
             return (
@@ -70,6 +72,12 @@ export default class LaunchScreen extends Component {
           })}
           <DevscreensButton />
         </ScrollView>
+      );
+    }
+
+    return (
+      <SafeAreaView style={styles.mainContainer}>
+        {content}
       </SafeAreaView>
     );
   }

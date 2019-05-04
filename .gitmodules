@@ -1,0 +1,4 @@
+[submodule "network.bapp.api"]
+	path = network.bapp.api
+	url = git@github.com:oskarszoon/network.bapp.api.git
+	branch = master

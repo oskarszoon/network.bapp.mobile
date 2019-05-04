@@ -1,0 +1,21 @@
+{
+  "source": "./network.bapp.api",
+  "runtime": {
+    "DDP_DEFAULT_CONNECTION_URL": "http://localhost:9001",
+    "ROOT_URL": "http://localhost:9001"
+  },
+  "import": [
+    "meteor-base",
+    "reactive-var",
+    "tracker",
+    "accounts-base",
+    "random",
+  ],
+  "externalNpmPackages": [
+    "@babel/runtime",
+    "core-js",
+    "meteor-node-stubs"
+  ],
+  "generateNodeModules": true,
+  "npmInstall": false
+}

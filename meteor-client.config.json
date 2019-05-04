@@ -9,7 +9,7 @@
     "reactive-var",
     "tracker",
     "accounts-base",
-    "random",
+    "random"
   ],
   "externalNpmPackages": [
     "@babel/runtime",

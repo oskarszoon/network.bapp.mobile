@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { SafeAreaView, ScrollView, Image } from 'react-native';
-import DevscreensButton from '../../ignite/DevScreens/DevscreensButton.js';
+import {
+  SafeAreaView, ScrollView, Image, Text,
+} from 'react-native';
 import RoundedButton from '../Components/RoundedButton';
 
 import { Images } from '../Themes';
@@ -8,30 +9,29 @@ import { Images } from '../Themes';
 // Styles
 import styles from './Styles/LaunchScreenStyles';
 
-export default class LaunchScreen extends Component {
+export default class BappItemAdd extends Component {
   constructor(props) {
     super(props);
 
-    this.openAddScreen = this.openAddScreen.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
-  openAddScreen() {
+  submit() {
+    // TODO: save the stuff
+
     const { navigation } = this.props;
-    navigation.navigate('BappItemAdd', {
-      bappId: 'bitstagram',
-    });
+    navigation.goBack();
   }
 
   render() {
     return (
       <SafeAreaView style={styles.mainContainer}>
+        <Text>Bapp item add</Text>
         <Image source={Images.background} style={styles.backgroundImage} resizeMode="stretch" />
         <ScrollView style={styles.container}>
-          <RoundedButton onPress={this.openAddScreen}>
-            Bitstagram
+          <RoundedButton onPress={this.submit}>
+            Submit
           </RoundedButton>
-
-          <DevscreensButton />
         </ScrollView>
       </SafeAreaView>
     );

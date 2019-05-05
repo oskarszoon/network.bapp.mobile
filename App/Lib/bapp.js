@@ -5,6 +5,7 @@ import { buildAuthorIdentity } from 'bitcoinfiles-sdk';
 import bsv from 'bsv';
 import { encryptLine } from './encryption';
 import { getSigningKey } from './user';
+import { each } from 'lodash';
 
 /**
  * Replace the given replacement variable with the correct data
@@ -56,13 +57,13 @@ const processFunctions = {
   base64atob: Base64.atob,
   base64encode: Base64.encode,
   base64btoa: Base64.btoa,
-  base58encode(hex) {
+  base58encode (hex) {
     return bsv.encoding.Base58.fromHex(hex).toString();
   },
-  base58decode(base58) {
+  base58decode (base58) {
     return bsv.encoding.Base58.fromString(base58).toHex();
   },
-  sha256(string) {
+  sha256 (string) {
     return bsv.crypto.Hash.sha256(Buffer.from(string)).toString('hex');
   },
 };
@@ -97,6 +98,31 @@ const sendBappTransaction = function (transaction, callback) {
   Meteor.call('transactions/send', transaction, callback);
 };
 
+const getJSONdata = function (data) {
+  const jsonFields = {};
+  const jsonData = {};
+  const allowedAttributes = ['fileName', 'fileSize', 'height', 'width', 'type'];
+  each(data, (value, key) => {
+    let dataValue = value;
+    if (typeof value === 'object') {
+      // deep clone
+      dataValue = JSON.parse(JSON.stringify(value));
+      if (dataValue.fileName) {
+        // clean all reduntant fields from files for the output
+        each(dataValue, (dataValueAttribute, attributeKey) => {
+          if (allowedAttributes.indexOf(attributeKey) < 0) {
+            delete dataValue[attributeKey];
+          }
+        });
+      }
+      jsonData[key] = dataValue;
+    }
+    jsonFields[key] = dataValue;
+  });
+  jsonData.fields = JSON.stringify(jsonFields);
+
+  return jsonData;
+};
 /**
  * Submit Bapp transaction from the interface for a certain definition
  * @param bapp
@@ -106,6 +132,9 @@ const sendBappTransaction = function (transaction, callback) {
  */
 export const submitBappTransaction = async function (bapp, data, callback) {
   const Random = require('meteor/random').Random;
+
+  // add the JSON helper attributes to the data object
+  data.JSON = getJSONdata(data);
 
   let protocol = [];
   const encryptionKey = Random.secret(64);

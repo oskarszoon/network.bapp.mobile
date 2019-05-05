@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Base64 } from 'js-base64';
 import { Buffer } from 'buffer';
 import datapay from 'datapay';
+import bitcoinfiles from 'bitcoinfiles-sdk';
 import bsv from 'bsv';
 import { encryptLine, decryptLine } from './encryption';
 

@@ -55,6 +55,7 @@ export default class BappItemAdd extends Component {
     submitBappTransaction(bapp, this.state, (err) => {
       if (err) {
         // TODO error handling
+        console.error(err);
       } else {
         navigation.goBack();
       }

@@ -3,6 +3,7 @@ import { Base64 } from 'js-base64';
 import { Buffer } from 'buffer';
 import datapay from 'datapay';
 import bitcoinfiles from 'bitcoinfiles-sdk';
+import { buildAuthorIdentity } from 'bitcoinfiles-sdk';
 import bsv from 'bsv';
 import { encryptLine, decryptLine } from './encryption';
 
@@ -94,8 +95,7 @@ const processProtocolLineObject = function (protocolLine, data) {
  * @param callback
  */
 const sendBappTransaction = function (transaction, callback) {
-  console.log(transaction);
-  //Meteor.call('send-transaction', transaction, callback);
+  Meteor.call('transactions/send', transaction, callback);
 };
 
 /**
@@ -136,13 +136,18 @@ export const submitBappTransaction = function (bapp, data, callback) {
   if (bapp.definition.sign) {
     // sign transaction using AUTHOR_IDENTITY_PROTOCOL
     protocol.push('0x' + Buffer.from('|').toString('hex'));
-    const Utils = bitcoinfiles.lib.utils;
-    const opReturnHexArray = Utils.buildAuthorIdentity({
-      args: args,
-      address: identityAddress,
-      key: signatureKey.key,
-      indexes: signatureKey.indexes ? signatureKey.indexes : undefined
+
+    const identityPrivateKey = bsv.PrivateKey("5JdrqND1PwsAxiNcVcuRmGtAbPrKu3AXXMTZzVW66qLxvRhJDhP");
+    const signatureKey = identityPrivateKey.toWIF();
+    const identityAddress = identityPrivateKey.publicKey.toAddress();
+    const opReturnHexArray = buildAuthorIdentity({
+      args: protocol,
+      address: identityAddress.toString(),
+      key: signatureKey,
+      indexes: bapp.definition.sign,
     });
+
+    protocol.concat(opReturnHexArray);
   }
 
   const bappTransaction = {
@@ -152,17 +157,12 @@ export const submitBappTransaction = function (bapp, data, callback) {
     bappTransaction.secret = encryptionKey;
   }
 
-  console.log('bappTransaction', bappTransaction);
-  callback(null, bappTransaction);
-  return false;
-
-  /*
-  datapay.build(config, (error, tx) => {
-    if (error) {
-      // error handling ...
+  sendBappTransaction(bappTransaction, (err, txId) => {
+    if (err) {
+      callback(err);
     } else {
-      sendBappTransaction(tx, callback);
+      bappTransaction.txId = txId;
+      callback(null, bappTransaction);
     }
   });
-  */
 };

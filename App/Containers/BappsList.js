@@ -9,6 +9,8 @@ import { Transition } from 'react-navigation-fluid-transitions';
 // Styles
 import styles from './Styles/LaunchScreenStyles';
 
+import coverPhoto from '../../assets/generator/facebook_cover_photo_2.png';
+
 export default class BappsList extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +55,13 @@ export default class BappsList extends Component {
     if (!loading) {
       content = (
         <ScrollView style={styles.container}>
+          <FastImage
+            style={{
+              width: '100%',
+              height: 120,
+            }}
+            source={coverPhoto}
+          />
           {bapps.map((bapp) => {
             return (
               <TouchableOpacity

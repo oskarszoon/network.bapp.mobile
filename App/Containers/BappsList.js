@@ -15,7 +15,7 @@ import RoundedButton from '../Components/RoundedButton';
 // Styles
 import styles from './Styles/LaunchScreenStyles';
 
-import coverPhoto from '../../assets/generator/facebook_cover_photo_2.png';
+import coverPhoto from '../../assets/app_icon.png';
 
 export default class BappsList extends Component {
   constructor(props) {
@@ -94,13 +94,24 @@ export default class BappsList extends Component {
     if (bappsReady && creditsReady) {
       content = (
         <ScrollView style={styles.container}>
-          <FastImage
-            style={{
-              width: '100%',
-              height: 120,
-            }}
-            source={coverPhoto}
-          />
+          <View style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', flex: 0, alignItems: 'center' }}>
+              <FastImage
+                style={{
+                  width: 60,
+                  height: 60,
+                }}
+                source={coverPhoto}
+              />
+              <Text style={{
+                fontSize: 40,
+                color: '#e1f6f4',
+              }}
+              >
+                Bapps
+              </Text>
+            </View>
+          </View>
           {bapps.map((bapp) => {
             return (
               <TouchableOpacity
@@ -112,7 +123,7 @@ export default class BappsList extends Component {
                     <FastImage
                       style={{
                         width: '100%',
-                        height: 160,
+                        height: 120,
                       }}
                       source={{
                         uri: bapp.definition.logo,

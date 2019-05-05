@@ -105,7 +105,7 @@ export default class BappListItems extends Component {
     return (
       <SafeAreaView style={styles.listItems_container}>
         <HeaderBackButton
-          tintColor="#393d46"
+          tintColor="#166678"
           onPress={navigation.goBack}
         />
         <View style={styles.list_container}>

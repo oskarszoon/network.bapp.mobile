@@ -68,22 +68,19 @@ export default class BappItemAdd extends Component {
 
     return (
       <SafeAreaView style={styles.mainContainer}>
-        <Transition shared={`bapp-card-${bapp.txId}`} appear="scale">
-          <Card
-            key={bapp.txId}
-            title={bapp.name}
-          >
+        <Card style={styles.list_card}>
+          <Transition shared={`bapp-logo-${bapp.txId}`} appear="scale">
             <FastImage
               style={{
                 width: '100%',
-                height: 80,
+                height: 160,
               }}
               source={{
                 uri: bapp.definition.logo,
               }}
             />
-          </Card>
-        </Transition>
+          </Transition>
+        </Card>
         <ScrollView style={styles.container}>
           <RoundedButton onPress={this.uploadImage}>
             Upload image

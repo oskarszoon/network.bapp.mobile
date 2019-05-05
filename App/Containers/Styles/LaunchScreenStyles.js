@@ -20,6 +20,15 @@ export default StyleSheet.create({
   centered: {
     alignItems: 'center',
   },
+  list_card: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  listItems_container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   list_container: {
     flex: 1,
     paddingLeft: 16,

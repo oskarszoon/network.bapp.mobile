@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView, ScrollView,
+  SafeAreaView, ScrollView, Platform,
 } from 'react-native';
+import RNFS from 'react-native-fs';
 import { Transition } from 'react-navigation-fluid-transitions';
 import ImagePicker from 'react-native-image-picker';
+import ImageResizerIos from 'react-native-image-resizer/index.ios';
+import ImageResizerAndroid from 'react-native-image-resizer/index.android';
 import { Card } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import { HeaderBackButton } from 'react-navigation'
@@ -13,6 +16,9 @@ import { submitBappTransaction } from '../Lib/bapp';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
+
+// this should really be handled by the react plugin :-S
+const ImageResizer = Platform.OS === 'android' ? ImageResizerAndroid : ImageResizerIos;
 
 export default class BappItemAdd extends Component {
   constructor(props) {
@@ -25,7 +31,7 @@ export default class BappItemAdd extends Component {
     };
   }
 
-  uploadImage() {
+  uploadImage () {
     const options = {
       title: 'Select photo',
       maxWidth: 300,
@@ -37,14 +43,22 @@ export default class BappItemAdd extends Component {
       } else if (response.error) {
         // console.log('ImagePicker Error: ', response.error);
       } else {
-        this.setState({
-          image: response,
+        ImageResizer.createResizedImage(response.uri, 480, 480, 'JPEG', 60).then(({ uri }) => {
+          RNFS.readFile(uri, 'base64').then((data) => {
+            response.uri = uri;
+            response.data = data;
+            this.setState({
+              image: response,
+            });
+          });
+        }).catch((err) => {
+          console.error(err);
         });
       }
     });
   }
 
-  submit() {
+  submit () {
     const { navigation } = this.props;
 
     // TODO: save the stuff
@@ -60,7 +74,7 @@ export default class BappItemAdd extends Component {
     });
   }
 
-  render() {
+  render () {
     const { navigation } = this.props;
     const bapp = navigation.getParam('bapp');
 

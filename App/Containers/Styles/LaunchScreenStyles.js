@@ -7,9 +7,14 @@ export default StyleSheet.create({
     paddingBottom: Metrics.baseMargin,
   },
   loading_container: {
-    flex: 1,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   logo: {
     marginTop: Metrics.doubleSection,
@@ -60,5 +65,21 @@ export default StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
     textAlign: 'center',
+  },
+  input_field_container: {
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 8,
+  },
+  text_field_input_container: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  text_field_input: {
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    paddingLeft: 8,
+    paddingRight: 8,
   },
 });

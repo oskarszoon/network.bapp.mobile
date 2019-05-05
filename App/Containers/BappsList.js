@@ -10,6 +10,7 @@ import {
 import { Overlay } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import { Transition } from 'react-navigation-fluid-transitions';
+import { showMessage } from 'react-native-flash-message';
 
 import { isAndroid } from '../Lib/platform';
 import RoundedButton from '../Components/RoundedButton';
@@ -67,13 +68,19 @@ export default class BappsList extends Component {
       creditsReady: false,
       buyCreditsVisible: false,
     });
-    Meteor.call('credits/add', 500, (err, credits = 0) => {
+    const creditsToBuy = 500;
+    Meteor.call('credits/add', creditsToBuy, (err, credits = 0) => {
       if (err) {
         console.error(err);
       }
       this.setState({
         creditsReady: true,
         credits,
+      });
+      showMessage({
+        message: `${creditsToBuy} credits added`,
+        description: `New balance: ${credits}`,
+        type: 'success',
       });
     });
   }

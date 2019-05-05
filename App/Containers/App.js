@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import { YellowBox, Platform, UIManager } from 'react-native';
+import FlashMessage from "react-native-flash-message";
 
 import DebugConfig from '../Config/DebugConfig';
 import RootContainer from './RootContainer';
@@ -44,6 +45,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <RootContainer />
+        <FlashMessage position="top" duration={3000} />
       </Provider>
     );
   }

@@ -40,7 +40,7 @@ export default class BappListItems extends Component {
     const bapp = navigation.getParam('bapp');
 
     // TODO: retrieve from bappConfig
-    if (bapp.txId === 'fa84be7e9e44dd1fa0ce9f85bf6e22265ba056f35dc23817883cff33af1f5f96') {
+    if (bapp.txId === 'ba84be7e9e44dd1fa0ce9f85bf6e22265ba056f35dc23817883cff33af1f5f96') {
       // Bitstagram
       const query = {
         v: 3,

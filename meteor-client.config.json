@@ -1,8 +1,8 @@
 {
   "source": "./network.bapp.api",
   "runtime": {
-    "DDP_DEFAULT_CONNECTION_URL": "http://localhost:9001",
-    "ROOT_URL": "http://localhost:9001"
+    "DDP_DEFAULT_CONNECTION_URL": "https://api.bapp.network",
+    "ROOT_URL": "https://api.bapp.network"
   },
   "import": [
     "meteor-base",

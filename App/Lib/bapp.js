@@ -157,7 +157,7 @@ export const submitBappTransaction = async function (bapp, data, callback) {
     bappTransaction.secret = encryptionKey;
   }
 
-  sendBappTransaction(bappTransaction, (err, txId) => {
+  sendBappTransaction(bappTransaction.protocol, (err, txId) => {
     if (err) {
       callback(err);
     } else {

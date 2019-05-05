@@ -14,7 +14,7 @@ export default StyleSheet.create({
     right: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(22,102,120, 0.5)',
   },
   logo: {
     marginTop: Metrics.doubleSection,

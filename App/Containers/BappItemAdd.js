@@ -219,7 +219,7 @@ export default class BappItemAdd extends Component {
         </ScrollView>
         {uploading && (
           <View style={styles.loading_container}>
-            <ActivityIndicator size="large" color="#abadb1" />
+            <ActivityIndicator size="large" color="#fff" />
           </View>
         )}
       </SafeAreaView>

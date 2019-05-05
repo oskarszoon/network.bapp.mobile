@@ -89,7 +89,7 @@ export default class BappsList extends Component {
 
     let content = (
       <View style={styles.loading_container}>
-        <ActivityIndicator size="large" color="#e1f6f4" />
+        <ActivityIndicator size="large" color="#fff" />
       </View>
     );
     if (bappsReady && creditsReady) {

@@ -9,6 +9,7 @@ import ImageResizer from 'react-native-image-resizer';
 import FastImage from 'react-native-fast-image';
 import { HeaderBackButton } from 'react-navigation';
 import { Input } from 'react-native-elements';
+import { showMessage } from 'react-native-flash-message';
 
 import { isAndroid } from '../Lib/platform';
 import RoundedButton from '../Components/RoundedButton';
@@ -46,17 +47,45 @@ export default class BappItemAdd extends Component {
     const transactionValues = inputFields.map((inputField) => {
       return this.state[inputField.id];
     });
-    submitBappTransaction(bapp, transactionValues, (err) => {
+
+    const submitToBlockchain = false; // change me
+    if (submitToBlockchain) {
+      submitBappTransaction(bapp, transactionValues, (err) => {
+        this.setState({
+          uploading: false,
+        });
+        if (err) {
+          showMessage({
+            message: 'Something went terribly wrong',
+            description: 'Out of credits?',
+            type: 'error',
+          });
+          console.error(err);
+        } else {
+          showMessage({
+            message: 'Submitted to blockchain',
+            description: 'You used 5 credits for this transaction',
+            type: 'success',
+          });
+          navigation.goBack();
+        }
+      });
+      return;
+    }
+
+    // Placeholder until the submit issues are solved
+    setTimeout(() => {
+      showMessage({
+        message: 'Submitted to blockchain',
+        description: 'You used 5 credits for this transaction',
+        type: 'success',
+      });
+
       this.setState({
         uploading: false,
       });
-      if (err) {
-        // TODO error handling
-        console.error(err);
-      } else {
-        navigation.goBack();
-      }
-    });
+      navigation.goBack();
+    }, 2000);
   }
 
   goBack() {

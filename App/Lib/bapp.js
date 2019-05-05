@@ -110,7 +110,7 @@ export const submitBappTransaction = async function (bapp, data, callback) {
   let protocol = [];
   const encryptionKey = Random.secret(64);
   let lineNr = 0;
-  protocol.push(Buffer.from(bapp.definition.protocolAddress).toString('hex'));
+  protocol.push('0x' + Buffer.from(bapp.definition.protocolAddress).toString('hex'));
   bapp.definition.protocol.forEach((protocolLine) => {
     let line;
     if (typeof protocolLine === 'object') {
@@ -119,12 +119,12 @@ export const submitBappTransaction = async function (bapp, data, callback) {
       line = processProtocolLine(protocolLine, data);
     }
 
-    let lineHex = Buffer.from(line).toString('hex');
+    let lineHex = '0x' + Buffer.from(line).toString('hex');
     if (typeof bapp.definition.encrypt === 'object') {
       // encrypt contents
       if (bapp.definition.encrypt.indexOf(lineNr) >= 0) {
         // encrypt the contents
-        lineHex = encryptLine(encryptionKey, line);
+        lineHex = '0x' + encryptLine(encryptionKey, line);
       }
     }
 

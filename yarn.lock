@@ -10901,25 +10901,12 @@ react-modal@^3.6.1:
     react-lifecycles-compat "^3.0.0"
     warning "^3.0.0"
 
-react-native-android-image-polyfill@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-android-image-polyfill/-/react-native-android-image-polyfill-1.0.0.tgz#f0b61bac0c6a91b8f8f81233ab1998613adf64ac"
-  integrity sha1-8LYbrAxqkbj4+BIzqxmYYTrfZKw=
-
 react-native-animatable@^1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.2.tgz#4783ee1a73dc98815aef234ce6b819f80bfe7d80"
   integrity sha512-rmah3KQ63ft8DxkzFUwJSuZeq+oSYwldoGF4DTOR5WM2WR5wiWLgBAtrAHlI3Di3by323uOR21s+MlqPcHz2Kw==
   dependencies:
     prop-types "^15.5.10"
-
-react-native-auto-height-image@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-auto-height-image/-/react-native-auto-height-image-1.1.0.tgz#509f441b4d5fc83ce9abfd5f459640f0273f5d01"
-  integrity sha512-vJH0NKyvzp9NtTNlcX/oEnKGgY2ZXW0VhQoz1TGNaxDHqpgtkTi645kS4ehjU95GV8h4pxIYYd/6SyuwXH2vrw==
-  dependencies:
-    prop-types "^15.5.8"
-    react-native-android-image-polyfill "^1.0.0"
 
 react-native-browser-polyfills@^1.0.9:
   version "1.0.9"
@@ -11004,6 +10991,11 @@ react-native-image-picker@^0.28.1:
   version "0.28.1"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-0.28.1.tgz#1127460522e0c9741fc62f3d040271d298fb6a6e"
   integrity sha512-CW2dm+cjsdW2fjBW2WD/cSufNG0x0UpljwGHrjSzyB0TckoW+tjYv44UWtckCWxr1JtCg+QrYDO/MzlRyFcjwQ==
+
+react-native-image-view@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-image-view/-/react-native-image-view-2.1.4.tgz#47faa6c42588e7509f530561a53d3b13eaa5e9bc"
+  integrity sha512-V9nKJ9voZgKVaB6IzLpl9WJ+g1j/CrrWG+x/XtEjjxYQK5yi1pTUcybkoNRXpxF7K8ZnGqR2Dp4VdEKPt5qJlA==
 
 react-native-level-fs@^3.0.0:
   version "3.0.1"

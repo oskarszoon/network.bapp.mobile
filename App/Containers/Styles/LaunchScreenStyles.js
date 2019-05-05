@@ -20,4 +20,9 @@ export default StyleSheet.create({
   centered: {
     alignItems: 'center',
   },
+  list_container: {
+    flex: 1,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
 });

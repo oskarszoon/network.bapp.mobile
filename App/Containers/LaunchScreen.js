@@ -31,6 +31,13 @@ export default class LaunchScreen extends Component {
     });
   }
 
+  openListScreen(bapp) {
+    const { navigation } = this.props;
+    navigation.navigate('BappListItems', {
+      bapp,
+    });
+  }
+
   openAddScreen(bapp) {
     const { navigation } = this.props;
     navigation.navigate('BappItemAdd', {
@@ -65,6 +72,7 @@ export default class LaunchScreen extends Component {
                       uri: bapp.definition.logo,
                     }}
                   />
+                  <RoundedButton onPress={this.openListScreen.bind(this, bapp)}>Open</RoundedButton>
                   <RoundedButton onPress={this.openAddScreen.bind(this, bapp)}>Post</RoundedButton>
                 </Card>
               </Transition>

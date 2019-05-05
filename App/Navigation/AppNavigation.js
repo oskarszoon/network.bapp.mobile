@@ -2,9 +2,8 @@ import { createAppContainer } from 'react-navigation';
 import { Animated, Easing } from 'react-native';
 import { FluidNavigator } from 'react-navigation-fluid-transitions';
 import LaunchScreen from '../Containers/LaunchScreen';
+import BappListItems from '../Containers/BappListItems';
 import BappItemAdd from '../Containers/BappItemAdd';
-
-import styles from './Styles/NavigationStyles';
 
 const transitionConfig = {
   duration: 300,
@@ -15,6 +14,7 @@ const transitionConfig = {
 // Manifest of possible screens
 const PrimaryNav = FluidNavigator({
   LaunchScreen: { screen: LaunchScreen },
+  BappListItems: { screen: BappListItems },
   BappItemAdd: { screen: BappItemAdd },
 }, {
   transitionConfig,

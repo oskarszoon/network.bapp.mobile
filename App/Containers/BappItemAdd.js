@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView, ScrollView, Image,
+  SafeAreaView, ScrollView,
 } from 'react-native';
 import { Transition } from 'react-navigation-fluid-transitions';
 import ImagePicker from 'react-native-image-picker';
 import { Card } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
+import { HeaderBackButton } from 'react-navigation'
 
 import RoundedButton from '../Components/RoundedButton';
 import { submitBappTransaction } from '../Lib/bapp';
@@ -21,7 +22,6 @@ export default class BappItemAdd extends Component {
     this.submit = this.submit.bind(this);
 
     this.state = {
-      image: null,
     };
   }
 
@@ -66,6 +66,10 @@ export default class BappItemAdd extends Component {
 
     return (
       <SafeAreaView style={styles.mainContainer}>
+        <HeaderBackButton
+          tintColor="#ffffff"
+          onPress={navigation.goBack}
+        />
         <Card style={styles.list_card}>
           <Transition shared={`bapp-logo-${bapp.txId}`} appear="scale">
             <FastImage

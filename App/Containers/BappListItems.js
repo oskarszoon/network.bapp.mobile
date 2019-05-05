@@ -7,6 +7,7 @@ import {
   Dimensions,
 } from 'react-native';
 import { Transition } from 'react-navigation-fluid-transitions';
+import { HeaderBackButton } from 'react-navigation';
 import FastImage from 'react-native-fast-image';
 import ImageView from 'react-native-image-view';
 import { Base64 } from 'js-base64';
@@ -33,6 +34,7 @@ export default class BappListItems extends Component {
 
   componentDidMount() {
     const { navigation } = this.props;
+
     const bapp = navigation.getParam('bapp');
 
     // TODO: retrieve from bappConfig
@@ -50,14 +52,14 @@ export default class BappListItems extends Component {
                 '3bb441fed7a2cf04f962ba4cf9ed2c258137bfcb841ea25e48b52b70662dacbb',
                 '6b9bf18f86045495251ffbf46deca0ba11e7efb059a6dd41b7af2dd66ce6505f',
                 '23ebe216c10a102080c3906155d46ee47e4204a60917c24c6ceb0cb5eca2b45b',
-                '0864291665a5bec72395ead32c07cdea33de9f4333eba15aed0a41d1f5d7bdd0',
+                '0864291665a5bec72395  ead32c07cdea33de9f4333eba15aed0a41d1f5d7bdd0',
                 '464548eb797d0404df1609f8d27e745dbfbbffbf779523d9d8d99653cf47771f',
-                '44a47114d940ced383dc19aade16ce6ed2d83b15e87d06e0c9a831951405d4c0'
+                '44a47114d940ced383dc19aade16ce6ed2d83b15e87d06e0c9a831951405d4c0',
               ],
             },
           },
           skip: 0,
-          limit: 100,
+          limit: 99,
         },
         r: { f: '[ .[] | {h: .tx.h, in: .in, blk: .blk} ]' },
       };
@@ -102,27 +104,34 @@ export default class BappListItems extends Component {
 
     return (
       <SafeAreaView style={styles.listItems_container}>
-        <Transition shared={`bapp-logo-${bapp.txId}`} appear="scale">
-          <FastImage
-            style={{
-              width: '100%',
-              height: 240,
-            }}
-            source={{
-              uri: bapp.definition.logo,
-            }}
-          />
-        </Transition>
+        <HeaderBackButton
+          tintColor="#393d46"
+          onPress={navigation.goBack}
+        />
         <View style={styles.list_container}>
-          <RoundedButton onPress={this.openAddScreen}>Post</RoundedButton>
           <FlatList
             data={items}
+            ListHeaderComponent={(
+              <View>
+                <Transition shared={`bapp-logo-${bapp.txId}`} appear="scale">
+                  <FastImage
+                    style={{
+                      width: '100%',
+                      height: 240,
+                    }}
+                    source={{
+                      uri: bapp.definition.logo,
+                    }}
+                  />
+                </Transition>
+                <RoundedButton onPress={this.openAddScreen}>Post</RoundedButton>
+              </View>
+            )}
             renderItem={({ item, index }) => {
               // 16px padding, TODO: make this better
               const itemSize = ((width - 32) / 3);
               return (
                 <TouchableOpacity
-                  key={item.h}
                   onPress={() => {
                     this.setState({
                       imageIndex: index,
@@ -139,7 +148,7 @@ export default class BappListItems extends Component {
               );
             }}
             numColumns={3}
-            keyExtractor={(item, index) => { return index.h; }}
+            keyExtractor={(item) => { return item.h; }}
           />
         </View>
         <ImageView

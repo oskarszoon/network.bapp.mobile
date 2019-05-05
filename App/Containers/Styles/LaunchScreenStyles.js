@@ -34,4 +34,11 @@ export default StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
+  credits_text: {
+    color: '#ffffff',
+    marginTop: 32,
+    paddingLeft: 16,
+    paddingRight: 16,
+    textAlign: 'center',
+  },
 });

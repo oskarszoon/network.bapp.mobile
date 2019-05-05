@@ -3,6 +3,7 @@ package com.bapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.bitgo.randombytes.RandomBytesPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.rnfs.RNFSPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RandomBytesPackage(),
             new SplashScreenReactPackage(),
             new RNFSPackage(),
             new FastImageViewPackage(),

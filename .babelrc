@@ -1,5 +1,12 @@
 {
   "presets": ["module:metro-react-native-babel-preset"],
+  "plugins": [
+    ["babel-plugin-rewrite-require", {
+      "aliases": {
+        "crypto": "react-native-crypto"
+      }
+    }]
+  ],
   "env": {
     "production": {
       "plugins": ["ignite-ignore-reactotron"]

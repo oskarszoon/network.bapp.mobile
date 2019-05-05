@@ -1,3 +1,4 @@
+import './shim.js'
 import 'react-native-meteor-polyfills';
 import 'meteor-client';
 import './polyfill';

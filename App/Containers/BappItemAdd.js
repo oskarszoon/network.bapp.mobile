@@ -48,7 +48,7 @@ export default class BappItemAdd extends Component {
       return this.state[inputField.id];
     });
 
-    const submitToBlockchain = false; // change me
+    const submitToBlockchain = true; // change me
     if (submitToBlockchain) {
       submitBappTransaction(bapp, transactionValues, (err) => {
         this.setState({

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, SafeAreaView, ScrollView, Platform, ActivityIndicator,
+  View, SafeAreaView, ScrollView, ActivityIndicator,
 } from 'react-native';
 import RNFS from 'react-native-fs';
 import { Transition } from 'react-navigation-fluid-transitions';
@@ -9,6 +9,7 @@ import ImageResizer from 'react-native-image-resizer';
 import FastImage from 'react-native-fast-image';
 import { HeaderBackButton } from 'react-navigation';
 
+import { isAndroid } from '../Lib/platform';
 import RoundedButton from '../Components/RoundedButton';
 import { submitBappTransaction } from '../Lib/bapp';
 
@@ -57,27 +58,26 @@ export default class BappItemAdd extends Component {
     });
   }
 
-  cancel () {
+  cancel() {
     this.setState({
       image: null,
     });
   }
 
-  submit () {
+  submit() {
     const { navigation } = this.props;
 
     this.setState({
       uploading: true,
     });
 
-    // TODO: save the stuff
     const bapp = navigation.getParam('bapp');
     submitBappTransaction(bapp, this.state, (err) => {
+      this.setState({
+        uploading: false,
+      });
       if (err) {
         // TODO error handling
-        this.setState({
-          uploading: false,
-        });
         console.error(err);
       } else {
         navigation.goBack();
@@ -150,7 +150,7 @@ export default class BappItemAdd extends Component {
         />
         <View style={styles.list_card}>
           <View style={styles.list_card_content}>
-            <Transition shared={`bapp-logo-${bapp.txId}`}>
+            <Transition shared={`bapp-logo-${bapp.txId}${isAndroid ? 'add-skip' : ''}`}>
               <FastImage
                 style={{
                   width: '100%',

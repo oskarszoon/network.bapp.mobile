@@ -11,6 +11,7 @@ import { Overlay } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import { Transition } from 'react-navigation-fluid-transitions';
 
+import { isAndroid } from '../Lib/platform';
 import RoundedButton from '../Components/RoundedButton';
 // Styles
 import styles from './Styles/LaunchScreenStyles';
@@ -105,7 +106,7 @@ export default class BappsList extends Component {
                   style={{ flex: 1 }}
                 >
                   <View style={styles.list_card_content}>
-                    <Transition shared={`bapp-logo-${bapp.txId}`}>
+                    <Transition shared={`bapp-logo-${bapp.txId}${isAndroid ? 'list-skip' : ''}`}>
                       <FastImage
                         style={{
                           width: '100%',

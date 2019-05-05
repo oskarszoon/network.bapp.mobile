@@ -12,9 +12,10 @@ import FastImage from 'react-native-fast-image';
 import ImageView from 'react-native-image-view';
 import { Base64 } from 'js-base64';
 
+import { isAndroid } from '../Lib/platform';
+import RoundedButton from '../Components/RoundedButton'
 // Styles
 import styles from './Styles/LaunchScreenStyles';
-import RoundedButton from '../Components/RoundedButton'
 
 const { width } = Dimensions.get('window');
 
@@ -120,7 +121,7 @@ export default class BappListItems extends Component {
             data={items}
             ListHeaderComponent={(
               <View>
-                <Transition shared={`bapp-logo-${bapp.txId}`} appear="scale">
+                <Transition shared={`bapp-logo-${bapp.txId}${isAndroid ? 'item-skip' : ''}`}>
                   <FastImage
                     style={{
                       width: '100%',

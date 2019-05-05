@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@tradle/react-native-http": "^2.0.0",
+    "aes-js": "^3.1.2",
     "apisauce": "^1.0.2",
     "browserify-zlib": "~0.1.4",
     "bsv": "^0.26.4",
@@ -38,6 +39,7 @@
     "format-json": "^1.0.3",
     "https-browserify": "~0.0.0",
     "identity-obj-proxy": "^3.0.0",
+    "js-base64": "^2.5.1",
     "lodash": "^4.17.11",
     "meteor-node-stubs": "^0.4.1",
     "meteor-redux-middlewares": "^3.0.7",

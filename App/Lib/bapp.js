@@ -1,6 +1,9 @@
 import { Meteor } from 'meteor/meteor';
-//import datapay from 'datapay';
-//import bsv from 'bsv';
+import { Base64 } from 'js-base64';
+import { Buffer } from 'buffer';
+import datapay from 'datapay';
+import bsv from 'bsv';
+import { encryptLine, decryptLine } from './encryption';
 
 /**
  * Replace the given replacement variable with the correct data
@@ -9,8 +12,12 @@ import { Meteor } from 'meteor/meteor';
  * @returns {*}
  */
 const getReplacementData = function (replacementVariable, data) {
-  // chop off the first "${" and last "}"
-  const dataKey = replacementVariable.substr(2, replacementVariable.length - 3);
+  let dataKey = replacementVariable;
+  if (dataKey.indexOf('${') === 0) {
+    // chop off the first "${" and last "}"
+    dataKey = dataKey.substr(2, replacementVariable.length - 3);
+  }
+
   // we only support 2 dimensional data objects so far, KISS and naive
   if (dataKey.indexOf('.')) {
     const [key, subKey] = dataKey.split('.');
@@ -44,9 +51,10 @@ const processProtocolLine = function (protocolLine, data) {
  * Defined the process function that are available as helpers in the definition
  */
 const processFunctions = {
-  base64decode: atob,
-  base64encode: btoa,
-  /*
+  base64decode: Base64.decode,
+  base64atob: Base64.atob,
+  base64encode: Base64.encode,
+  base64btoa: Base64.btoa,
   base58encode(hex) {
     return bsv.encoding.Base58.fromHex(hex).toString();
   },
@@ -56,7 +64,6 @@ const processFunctions = {
   sha256(string) {
     return bsv.crypto.Hash.sha256(Buffer.from(string)).toString('hex');
   },
-  */
 };
 
 /**
@@ -98,32 +105,54 @@ const sendBappTransaction = function (transaction, callback) {
  * @returns {boolean}
  */
 export const submitBappTransaction = function (bapp, data, callback) {
-  const protocol = [];
-  console.log(bapp.definition);
-  bapp.definition.protocol.forEach((protocolLine) => {
-    if (typeof protocolLine === 'object') {
-      protocol.push(processProtocolLineObject(protocolLine, data));
-    } else {
-      protocol.push(processProtocolLine(protocolLine, data));
-    }
-  });
-  console.log('protocol', protocol);
+  const Random = require('meteor/random').Random;
 
-  const transaction = protocol.join(' ');
-  const config = {
-    data: transaction,
-  };
+  const protocol = [];
+  const encryptionKey = Random.secret(64);
+  let lineNr = 0;
+  protocol.push(bapp.definition.protocolAddress);
+  bapp.definition.protocol.forEach((protocolLine) => {
+    let line;
+    if (typeof protocolLine === 'object') {
+      line = processProtocolLineObject(protocolLine, data);
+    } else {
+      line = processProtocolLine(protocolLine, data);
+    }
+
+    let lineHex = Buffer.from(line).toString('hex');
+    if (typeof bapp.definition.encrypt === 'object') {
+      // encrypt contents
+      if (bapp.definition.encrypt.indexOf(lineNr) >= 0) {
+        // encrypt the contents
+        lineHex = encryptLine(encryptionKey, line);
+      }
+    }
+
+    protocol.push(lineHex);
+    lineNr += 1;
+  });
 
   if (bapp.definition.sign) {
     // sign transaction using AUTHOR_IDENTITY_PROTOCOL
+    protocol.push('0x' + Buffer.from('|').toString('hex'));
+    const Utils = bitcoinfiles.lib.utils;
+    const opReturnHexArray = Utils.buildAuthorIdentity({
+      args: args,
+      address: identityAddress,
+      key: signatureKey.key,
+      indexes: signatureKey.indexes ? signatureKey.indexes : undefined
+    });
   }
 
+  const bappTransaction = {
+    protocol,
+  };
   if (bapp.definition.encrypt) {
-    // encrypt contents
+    bappTransaction.secret = encryptionKey;
   }
 
-  console.log('config', config);
-  callback(null, config);
+  console.log('bappTransaction', bappTransaction);
+  callback(null, bappTransaction);
   return false;
 
   /*

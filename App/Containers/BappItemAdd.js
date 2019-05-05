@@ -8,6 +8,7 @@ import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import FastImage from 'react-native-fast-image';
 import { HeaderBackButton } from 'react-navigation';
+import { Input } from 'react-native-elements';
 
 import { isAndroid } from '../Lib/platform';
 import RoundedButton from '../Components/RoundedButton';
@@ -20,48 +21,16 @@ export default class BappItemAdd extends Component {
   constructor(props) {
     super(props);
 
-    this.uploadImage = this.uploadImage.bind(this);
     this.submit = this.submit.bind(this);
     this.cancel = this.cancel.bind(this);
     this.goBack = this.goBack.bind(this);
+    this.renderImageField = this.renderImageField.bind(this);
+    this.renderTextField = this.renderTextField.bind(this);
 
     this.state = {
       image: null,
       uploading: false,
     };
-  }
-
-  uploadImage() {
-    const options = {
-      title: 'Select photo',
-      maxWidth: 300,
-      maxHeight: 300,
-    };
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        // console.log('User cancelled image picker');
-      } else if (response.error) {
-        // console.log('ImagePicker Error: ', response.error);
-      } else {
-        ImageResizer.createResizedImage(response.uri, 320, 320, 'JPEG', 60).then(({ uri }) => {
-          RNFS.readFile(uri, 'base64').then((data) => {
-            response.uri = uri;
-            response.data = data;
-            this.setState({
-              image: response,
-            });
-          });
-        }).catch((err) => {
-          console.error(err);
-        });
-      }
-    });
-  }
-
-  cancel() {
-    this.setState({
-      image: null,
-    });
   }
 
   submit() {
@@ -72,7 +41,12 @@ export default class BappItemAdd extends Component {
     });
 
     const bapp = navigation.getParam('bapp');
-    submitBappTransaction(bapp, this.state, (err) => {
+    const { inputFields } = bapp.definition;
+
+    const transactionValues = inputFields.map((inputField) => {
+      return this.state[inputField.id];
+    });
+    submitBappTransaction(bapp, transactionValues, (err) => {
       this.setState({
         uploading: false,
       });
@@ -90,41 +64,54 @@ export default class BappItemAdd extends Component {
     navigation.goBack();
   }
 
-  render() {
-    const { navigation } = this.props;
-    const { image, uploading } = this.state;
-    const bapp = navigation.getParam('bapp');
+  cancel(fieldId) {
+    this.setState({
+      [fieldId]: null,
+    });
+  }
+
+  uploadImage(fieldId) {
+    const options = {
+      title: 'Select photo',
+      maxWidth: 300,
+      maxHeight: 300,
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      if (response.didCancel) {
+        // console.log('User cancelled image picker');
+      } else if (response.error) {
+        // console.log('ImagePicker Error: ', response.error);
+      } else {
+        ImageResizer.createResizedImage(response.uri, 320, 320, 'JPEG', 60).then(({ uri }) => {
+          RNFS.readFile(uri, 'base64').then((data) => {
+            response.uri = uri;
+            response.data = data;
+            this.setState({
+              [fieldId]: response,
+            });
+          });
+        }).catch((err) => {
+          console.error(err);
+        });
+      }
+    });
+  }
+
+  renderImageField(inputField) {
+    const { id } = inputField;
+    const { uploading } = this.state;
 
     const selectImage = (
-      <RoundedButton onPress={this.uploadImage}>
+      <RoundedButton onPress={this.uploadImage.bind(this, id)}>
         Select image
       </RoundedButton>
     );
 
-    let content;
-    if (image) {
-      const uploadButtons = (
+    if (this.state[id]) {
+      const image = this.state[id];
+      return (
         <View>
-          <RoundedButton onPress={this.submit}>
-            Submit
-          </RoundedButton>
-          <RoundedButton onPress={this.cancel}>
-          Cancel
-          </RoundedButton>
-        </View>
-      );
-      const uploadingIndicator = (
-        <View style={styles.loading_container}>
-          <ActivityIndicator size="large" color="#abadb1" />
-        </View>
-      );
-      content = (
-        <View>
-          <View
-            style={{
-              padding: 16,
-            }}
-          >
+          <View>
             <FastImage
               style={{
                 width: '100%',
@@ -135,12 +122,62 @@ export default class BappItemAdd extends Component {
               }}
             />
           </View>
-          {uploading ? uploadingIndicator : uploadButtons}
+          {!uploading && (
+            <View>
+              <RoundedButton onPress={this.cancel.bind(this, id)}>
+                Cancel
+              </RoundedButton>
+            </View>
+          )}
         </View>
       );
-    } else {
-      content = selectImage;
     }
+    return selectImage;
+  }
+
+  handleChangeInput(fieldId, value) {
+    this.setState({
+      [fieldId]: value,
+    });
+  }
+
+  renderTextField(inputField) {
+    const { id, description } = inputField;
+
+    return (
+      <Input
+        containerStyle={styles.text_field_input_container}
+        inputContainerStyle={styles.text_field_input}
+        onChangeText={this.handleChangeInput.bind(this, id)}
+        placeholder={description}
+      />
+    );
+  }
+
+  render() {
+    const { navigation } = this.props;
+    const { uploading } = this.state;
+    const bapp = navigation.getParam('bapp');
+
+    const { inputFields } = bapp.definition;
+
+    const inputFieldContents = [];
+    let requiredInputsReady = false;
+    inputFields.forEach((inputField) => {
+      if (inputField.type === 'image') {
+        inputFieldContents.push(this.renderImageField(inputField));
+      } else if (inputField.type === 'text') {
+        inputFieldContents.push(this.renderTextField(inputField));
+      } else {
+        // inputFieldContents.push((
+        //   <Text>Dont know how to render yet</Text>
+        // ));
+      }
+
+      if (inputField.required && this.state[inputField.id]) {
+        requiredInputsReady = true;
+      }
+    });
 
     return (
       <SafeAreaView style={styles.mainContainer}>
@@ -164,8 +201,27 @@ export default class BappItemAdd extends Component {
           </View>
         </View>
         <ScrollView style={styles.container}>
-          {content}
+          {inputFieldContents.map((inputField, index) => {
+            return (
+              <View
+                key={index.toString()}
+                style={styles.input_field_container}
+              >
+                {inputField}
+              </View>
+            );
+          })}
+          {requiredInputsReady && !uploading && (
+            <RoundedButton onPress={this.submit}>
+              Submit to blockchain
+            </RoundedButton>
+          )}
         </ScrollView>
+        {uploading && (
+          <View style={styles.loading_container}>
+            <ActivityIndicator size="large" color="#abadb1" />
+          </View>
+        )}
       </SafeAreaView>
     );
   }

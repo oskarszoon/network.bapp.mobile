@@ -43,7 +43,7 @@ export default class BappItemAdd extends Component {
       } else if (response.error) {
         // console.log('ImagePicker Error: ', response.error);
       } else {
-        ImageResizer.createResizedImage(response.uri, 480, 480, 'JPEG', 60).then(({ uri }) => {
+        ImageResizer.createResizedImage(response.uri, 320, 320, 'JPEG', 60).then(({ uri }) => {
           RNFS.readFile(uri, 'base64').then((data) => {
             response.uri = uri;
             response.data = data;

@@ -4,8 +4,9 @@ import { Buffer } from 'buffer';
 import { buildAuthorIdentity } from 'bitcoinfiles-sdk';
 import bsv from 'bsv';
 import { encryptLine } from './encryption';
-import { getSigningKey } from './user';
+import { getSigningKey, getEncryptionKey } from './user';
 import { each } from 'lodash';
+import ECIES from 'bsv/ecies';
 
 /**
  * Replace the given replacement variable with the correct data
@@ -92,10 +93,11 @@ const processProtocolLineObject = function (protocolLine, data) {
 /**
  * Send the transaction to the backend
  * @param transaction
+ * @param encryptedSecret
  * @param callback
  */
-const sendBappTransaction = function (transaction, callback) {
-  Meteor.call('transactions/send', transaction, callback);
+const sendBappTransaction = function (transaction, encryptedSecret, callback) {
+  Meteor.call('transactions/send', transaction, encryptedSecret, callback);
 };
 
 const getJSONdata = function (data) {
@@ -182,11 +184,28 @@ export const submitBappTransaction = async function (bapp, data, callback) {
   const bappTransaction = {
     protocol,
   };
+
+  let encryptedSecret;
   if (bapp.definition.encrypt) {
     bappTransaction.secret = encryptionKey;
+
+    // We don't have a way (yet) to give the user the encryption secret in the app
+    // for now we send it to the backend, where it will be stored in the database, encrypted
+    // by the public key of the user
+    const loginKey = await getEncryptionKey();
+    const ecies = ECIES();
+    ecies.publicKey(loginKey.publicKey);
+    encryptedSecret = ecies.encrypt(bappTransaction.secret).toString('hex');
+
+    /* placeholder for decryption ...
+    const ecies2 = ECIES();
+    ecies2.privateKey(loginKey);
+    const decrypted = ecies2.decrypt(Buffer.from(encryptedSecret, 'hex')).toString();
+    console.log({decrypted});
+    */
   }
 
-  sendBappTransaction(bappTransaction.protocol, (err, txId) => {
+  sendBappTransaction(bappTransaction.protocol, encryptedSecret, (err, txId) => {
     if (err) {
       callback(err);
     } else {

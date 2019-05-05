@@ -15,6 +15,11 @@ export const getLoginKey = async function () {
   return hdPrivateKey.deriveChild('m/0\'/0\'/0\'').privateKey;
 };
 
+export const getEncryptionKey = async function () {
+  const hdPrivateKey = await getHdPrivateKey();
+  return hdPrivateKey.deriveChild('m/0\'/0\'/1\'').privateKey;
+};
+
 export const getSigningKey = async function () {
   const hdPrivateKey = await getHdPrivateKey();
   return hdPrivateKey.deriveChild('m/0/0/0').privateKey;

@@ -2,7 +2,7 @@ import '../Config';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
-import { YellowBox } from 'react-native';
+import { YellowBox, Platform, UIManager } from 'react-native';
 
 import DebugConfig from '../Config/DebugConfig';
 import RootContainer from './RootContainer';
@@ -28,6 +28,14 @@ YellowBox.ignoreWarnings([
  * We separate like this to play nice with React Native's hot reloading.
  */
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
+
   componentDidMount() {
     SplashScreen.hide();
   }

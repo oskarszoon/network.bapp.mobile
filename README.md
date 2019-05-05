@@ -5,6 +5,8 @@
 
 ## :arrow_up: How to Setup
 
+**Required libraries:** [React Native](https://medium.com/@randerson112358/setup-react-native-environment-for-ios-97bf7faadf77) and [Meteor](https://www.meteor.com/install) 
+
 **Step 1:** git clone this repo:
 
 **Step 2:** cd to the cloned repo:

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  SafeAreaView, ScrollView, Platform,
+  View, SafeAreaView, ScrollView, Platform,
 } from 'react-native';
 import RNFS from 'react-native-fs';
 import { Transition } from 'react-navigation-fluid-transitions';
@@ -26,6 +26,7 @@ export default class BappItemAdd extends Component {
 
     this.uploadImage = this.uploadImage.bind(this);
     this.submit = this.submit.bind(this);
+    this.cancel = this.cancel.bind(this);
 
     this.state = {
     };
@@ -58,6 +59,12 @@ export default class BappItemAdd extends Component {
     });
   }
 
+  cancel () {
+    this.setState({
+      image: null,
+    });
+  }
+
   submit () {
     const { navigation } = this.props;
 
@@ -76,6 +83,7 @@ export default class BappItemAdd extends Component {
 
   render () {
     const { navigation } = this.props;
+    const { image } = this.state;
     const bapp = navigation.getParam('bapp');
 
     return (
@@ -98,12 +106,36 @@ export default class BappItemAdd extends Component {
           </Transition>
         </Card>
         <ScrollView style={styles.container}>
+          {!image && (
           <RoundedButton onPress={this.uploadImage}>
-            Upload image
+            Select image
           </RoundedButton>
-          <RoundedButton onPress={this.submit}>
-            Submit
-          </RoundedButton>
+          )}
+          {!!image && (
+            <View>
+              <View
+                style={{
+                  padding: 16,
+                }}
+              >
+                <FastImage
+                  style={{
+                    width: '100%',
+                    height: 160,
+                  }}
+                  source={{
+                    uri: image.uri,
+                  }}
+                />
+              </View>
+              <RoundedButton onPress={this.submit}>
+                Submit
+              </RoundedButton>
+              <RoundedButton onPress={this.cancel}>
+                Cancel
+              </RoundedButton>
+            </View>
+          )}
         </ScrollView>
       </SafeAreaView>
     );

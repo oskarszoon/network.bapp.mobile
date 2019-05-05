@@ -2,6 +2,7 @@ import '../Config';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
+import { YellowBox } from 'react-native';
 
 import DebugConfig from '../Config/DebugConfig';
 import RootContainer from './RootContainer';
@@ -10,6 +11,12 @@ import './Debug';
 
 // create our store
 const store = createStore();
+
+console.disableYellowBox = true;
+YellowBox.ignoreWarnings([
+  'Warning: isMounted(...) is deprecated',
+  'Module RCTImageLoader',
+]);
 
 /**
  * Provides an entry point into our application.  Both index.ios.js and index.android.js

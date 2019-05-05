@@ -10,8 +10,6 @@ import FastImage from 'react-native-fast-image';
 import RoundedButton from '../Components/RoundedButton';
 import { submitBappTransaction } from '../Lib/bapp';
 
-import { Images } from '../Themes';
-
 // Styles
 import styles from './Styles/LaunchScreenStyles';
 

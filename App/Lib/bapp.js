@@ -104,7 +104,7 @@ const sendBappTransaction = function (transaction, callback) {
  * @param callback
  * @returns {boolean}
  */
-export const submitBappTransaction = function (bapp, data, callback) {
+export const submitBappTransaction = async function (bapp, data, callback) {
   const Random = require('meteor/random').Random;
 
   let protocol = [];
@@ -136,7 +136,7 @@ export const submitBappTransaction = function (bapp, data, callback) {
     // sign transaction using AUTHOR_IDENTITY_PROTOCOL
     protocol.push('0x' + Buffer.from('|').toString('hex'));
 
-    const signingKey = getSigningKey();
+    const signingKey = await getSigningKey();
     const identityPrivateKey = bsv.PrivateKey(signingKey.toWIF());
     const signatureKey = identityPrivateKey.toWIF();
     const identityAddress = identityPrivateKey.publicKey.toAddress();

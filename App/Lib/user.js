@@ -1,41 +1,55 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
-import Mnemonic from 'bsv/mnemonic';
 import Message from 'bsv/message';
+import Mnemonic from 'bsv/mnemonic';
+import { getMnemonic, generateNewMnemonic } from './secure-store';
 
-const getSecureMnemonic = function () {
-  // TODO: Add menomic to secure storage and retrieve on login/start
-  // get mnemonic from secure storage
-  /*
-    const mnemonic = Mnemonic.fromRandom();
-    console.log(mnemonic.toString());
-  */
-
-  // TEMP fake one
-  const mnemonic = Mnemonic.fromString(
-    'arm furnace brisk beyond luxury section expect slam lucky bread fever submit'
-  );
-  return mnemonic;
+const getHdPrivateKey = async function () {
+  const mnemonicString = await getMnemonic();
+  const mnemonic = Mnemonic.fromString(mnemonicString);
+  return mnemonic.toHDPrivateKey();
 };
 
-const getHdPrivateKey = function () {
-  const mnemonic = getSecureMnemonic();
-  const hdPrivateKey = mnemonic.toHDPrivateKey();
-  return hdPrivateKey;
-};
-
-export const getLoginKey = function () {
-  const hdPrivateKey = getHdPrivateKey();
+export const getLoginKey = async function () {
+  const hdPrivateKey = await getHdPrivateKey();
   return hdPrivateKey.deriveChild('m/0\'/0\'/0\'').privateKey;
 };
 
-export const getSigningKey = function () {
-  const hdPrivateKey = getHdPrivateKey();
+export const getSigningKey = async function () {
+  const hdPrivateKey = await getHdPrivateKey();
   return hdPrivateKey.deriveChild('m/0/0/0').privateKey;
 };
 
-export const login = function (callback) {
-  const loginKey = getLoginKey();
+export const checkOrCreateKeys = async function () {
+  let mnemonic = await getMnemonic();
+  if (!mnemonic) {
+    mnemonic = await generateNewMnemonic();
+  }
+
+  return !!mnemonic;
+};
+
+const createUserAndLogin = async function (loginKey, selector, challenge) {
+  const createChallenge = `Create new user ${selector.address} ${selector.timestamp}`;
+  const signature = Message.sign(createChallenge, loginKey);
+  Meteor.call('create-user', selector.address, selector.timestamp, signature, (err) => {
+    if (err) {
+      callback(err);
+    } else {
+      const loginSignature = Message.sign(challenge + selector.timestamp, loginKey);
+      Meteor.loginWithBitcoin(selector, loginSignature, (loginErr, userId) => {
+        if (loginErr) {
+          callback(loginErr);
+        } else {
+          callback(null, userId);
+        }
+      });
+    }
+  });
+};
+
+export const login = async function (callback) {
+  const loginKey = await getLoginKey();
   const address = loginKey.publicKey.toAddress().toString();
   const timestamp = Math.round(+new Date() / 1000);
   const selector = {
@@ -48,7 +62,17 @@ export const login = function (callback) {
       callback(err);
     } else {
       const signature = Message.sign(challenge + timestamp, loginKey);
-      Meteor.loginWithBitcoin(selector, signature, callback);
+      Meteor.loginWithBitcoin(selector, signature, async (loginErr, userId) => {
+        if (loginErr) {
+          if (loginErr.error === 404) {
+            await createUserAndLogin(loginKey, selector, challenge);
+          } else {
+            callback(loginErr);
+          }
+        } else {
+          callback(null, userId);
+        }
+      });
     }
   });
 };

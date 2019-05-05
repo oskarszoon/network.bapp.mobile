@@ -193,7 +193,7 @@ export default class BappItemAdd extends Component {
     const inputFieldContents = [];
     let requiredInputsReady = false;
     inputFields.forEach((inputField) => {
-      if (inputField.type === 'image') {
+      if (inputField.type === 'image' || inputField.type === 'file') {
         inputFieldContents.push(this.renderImageField(inputField));
       } else if (inputField.type === 'text') {
         inputFieldContents.push(this.renderTextField(inputField));

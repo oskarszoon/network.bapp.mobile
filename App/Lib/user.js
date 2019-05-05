@@ -4,22 +4,34 @@ import Mnemonic from 'bsv/mnemonic';
 import Message from 'bsv/message';
 
 const getSecureMnemonic = function () {
+  // TODO: Add menomic to secure storage and retrieve on login/start
   // get mnemonic from secure storage
   /*
     const mnemonic = Mnemonic.fromRandom();
     console.log(mnemonic.toString());
   */
 
+  // TEMP fake one
   const mnemonic = Mnemonic.fromString(
     'arm furnace brisk beyond luxury section expect slam lucky bread fever submit'
   );
   return mnemonic;
 };
 
-export const getLoginKey = function () {
+const getHdPrivateKey = function () {
   const mnemonic = getSecureMnemonic();
   const hdPrivateKey = mnemonic.toHDPrivateKey();
+  return hdPrivateKey;
+};
+
+export const getLoginKey = function () {
+  const hdPrivateKey = getHdPrivateKey();
   return hdPrivateKey.deriveChild('m/0\'/0\'/0\'').privateKey;
+};
+
+export const getSigningKey = function () {
+  const hdPrivateKey = getHdPrivateKey();
+  return hdPrivateKey.deriveChild('m/0/0/0').privateKey;
 };
 
 export const login = function (callback) {

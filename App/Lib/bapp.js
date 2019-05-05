@@ -1,11 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import { Base64 } from 'js-base64';
 import { Buffer } from 'buffer';
-import datapay from 'datapay';
-import bitcoinfiles from 'bitcoinfiles-sdk';
 import { buildAuthorIdentity } from 'bitcoinfiles-sdk';
 import bsv from 'bsv';
-import { encryptLine, decryptLine } from './encryption';
+import { encryptLine } from './encryption';
+import { getSigningKey } from './user';
 
 /**
  * Replace the given replacement variable with the correct data
@@ -108,10 +107,10 @@ const sendBappTransaction = function (transaction, callback) {
 export const submitBappTransaction = function (bapp, data, callback) {
   const Random = require('meteor/random').Random;
 
-  const protocol = [];
+  let protocol = [];
   const encryptionKey = Random.secret(64);
   let lineNr = 0;
-  protocol.push(bapp.definition.protocolAddress);
+  protocol.push(Buffer.from(bapp.definition.protocolAddress).toString('hex'));
   bapp.definition.protocol.forEach((protocolLine) => {
     let line;
     if (typeof protocolLine === 'object') {
@@ -137,7 +136,8 @@ export const submitBappTransaction = function (bapp, data, callback) {
     // sign transaction using AUTHOR_IDENTITY_PROTOCOL
     protocol.push('0x' + Buffer.from('|').toString('hex'));
 
-    const identityPrivateKey = bsv.PrivateKey("5JdrqND1PwsAxiNcVcuRmGtAbPrKu3AXXMTZzVW66qLxvRhJDhP");
+    const signingKey = getSigningKey();
+    const identityPrivateKey = bsv.PrivateKey(signingKey.toWIF());
     const signatureKey = identityPrivateKey.toWIF();
     const identityAddress = identityPrivateKey.publicKey.toAddress();
     const opReturnHexArray = buildAuthorIdentity({
@@ -147,7 +147,7 @@ export const submitBappTransaction = function (bapp, data, callback) {
       indexes: bapp.definition.sign,
     });
 
-    protocol.concat(opReturnHexArray);
+    protocol = protocol.concat(opReturnHexArray);
   }
 
   const bappTransaction = {

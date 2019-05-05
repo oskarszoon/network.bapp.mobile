@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import { Card, Overlay } from 'react-native-elements';
+import { Overlay } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 import { Transition } from 'react-navigation-fluid-transitions';
 
@@ -96,9 +96,11 @@ export default class BappsList extends Component {
         <ScrollView style={styles.container}>
           {bapps.map((bapp) => {
             return (
-              <View style={styles.list_card}>
+              <View
+                key={bapp.txId}
+                style={styles.list_card}
+              >
                 <TouchableOpacity
-                  key={bapp.txId}
                   onPress={this.openListScreen.bind(this, bapp)}
                   style={{ flex: 1 }}
                 >

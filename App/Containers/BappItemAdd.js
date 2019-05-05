@@ -5,20 +5,15 @@ import {
 import RNFS from 'react-native-fs';
 import { Transition } from 'react-navigation-fluid-transitions';
 import ImagePicker from 'react-native-image-picker';
-import ImageResizerIos from 'react-native-image-resizer/index.ios';
-import ImageResizerAndroid from 'react-native-image-resizer/index.android';
-import { Card } from 'react-native-elements';
+import ImageResizer from 'react-native-image-resizer';
 import FastImage from 'react-native-fast-image';
-import { HeaderBackButton } from 'react-navigation'
+import { HeaderBackButton } from 'react-navigation';
 
 import RoundedButton from '../Components/RoundedButton';
 import { submitBappTransaction } from '../Lib/bapp';
 
 // Styles
 import styles from './Styles/LaunchScreenStyles';
-
-// this should really be handled by the react plugin :-S
-const ImageResizer = Platform.OS === 'android' ? ImageResizerAndroid : ImageResizerIos;
 
 export default class BappItemAdd extends Component {
   constructor(props) {
@@ -27,6 +22,7 @@ export default class BappItemAdd extends Component {
     this.uploadImage = this.uploadImage.bind(this);
     this.submit = this.submit.bind(this);
     this.cancel = this.cancel.bind(this);
+    this.goBack = this.goBack.bind(this);
 
     this.state = {
       image: null,
@@ -34,7 +30,7 @@ export default class BappItemAdd extends Component {
     };
   }
 
-  uploadImage () {
+  uploadImage() {
     const options = {
       title: 'Select photo',
       maxWidth: 300,
@@ -89,7 +85,12 @@ export default class BappItemAdd extends Component {
     });
   }
 
-  render () {
+  goBack() {
+    const { navigation } = this.props;
+    navigation.goBack();
+  }
+
+  render() {
     const { navigation } = this.props;
     const { image, uploading } = this.state;
     const bapp = navigation.getParam('bapp');
@@ -145,21 +146,23 @@ export default class BappItemAdd extends Component {
       <SafeAreaView style={styles.mainContainer}>
         <HeaderBackButton
           tintColor="#ffffff"
-          onPress={navigation.goBack}
+          onPress={this.goBack}
         />
-        <Card style={styles.list_card}>
-          <Transition shared={`bapp-logo-${bapp.txId}`} appear="scale">
-            <FastImage
-              style={{
-                width: '100%',
-                height: 160,
-              }}
-              source={{
-                uri: bapp.definition.logo,
-              }}
-            />
-          </Transition>
-        </Card>
+        <View style={styles.list_card}>
+          <View style={styles.list_card_content}>
+            <Transition shared={`bapp-logo-${bapp.txId}`}>
+              <FastImage
+                style={{
+                  width: '100%',
+                  height: 120,
+                }}
+                source={{
+                  uri: bapp.definition.logo,
+                }}
+              />
+            </Transition>
+          </View>
+        </View>
         <ScrollView style={styles.container}>
           {content}
         </ScrollView>

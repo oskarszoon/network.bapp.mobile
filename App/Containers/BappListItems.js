@@ -23,6 +23,7 @@ export default class BappListItems extends Component {
     super(props);
 
     this.openAddScreen = this.openAddScreen.bind(this);
+    this.goBack = this.goBack.bind(this);
 
     this.state = {
       items: [],
@@ -86,6 +87,11 @@ export default class BappListItems extends Component {
     });
   }
 
+  goBack() {
+    const { navigation } = this.props;
+    navigation.goBack();
+  }
+
   render() {
     const { navigation } = this.props;
     const bapp = navigation.getParam('bapp');
@@ -99,15 +105,16 @@ export default class BappListItems extends Component {
         },
       };
     });
-    console.log('items', items);
     const { isImageViewVisible, imageIndex } = this.state;
 
     return (
       <SafeAreaView style={styles.listItems_container}>
-        <HeaderBackButton
-          tintColor="#166678"
-          onPress={navigation.goBack}
-        />
+        <View style={{ flexDirection: 'row' }}>
+          <HeaderBackButton
+            tintColor="#166678"
+            onPress={this.goBack}
+          />
+        </View>
         <View style={styles.list_container}>
           <FlatList
             data={items}

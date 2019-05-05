@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  View, SafeAreaView, ScrollView, Platform,
+  View, SafeAreaView, ScrollView, Platform, ActivityIndicator,
 } from 'react-native';
 import RNFS from 'react-native-fs';
 import { Transition } from 'react-navigation-fluid-transitions';
@@ -29,6 +29,8 @@ export default class BappItemAdd extends Component {
     this.cancel = this.cancel.bind(this);
 
     this.state = {
+      image: null,
+      uploading: false,
     };
   }
 
@@ -68,12 +70,18 @@ export default class BappItemAdd extends Component {
   submit () {
     const { navigation } = this.props;
 
+    this.setState({
+      uploading: true,
+    });
+
     // TODO: save the stuff
     const bapp = navigation.getParam('bapp');
-    console.log('submitBappTransaction', bapp, this.state);
     submitBappTransaction(bapp, this.state, (err) => {
       if (err) {
         // TODO error handling
+        this.setState({
+          uploading: false,
+        });
         console.error(err);
       } else {
         navigation.goBack();
@@ -83,8 +91,55 @@ export default class BappItemAdd extends Component {
 
   render () {
     const { navigation } = this.props;
-    const { image } = this.state;
+    const { image, uploading } = this.state;
     const bapp = navigation.getParam('bapp');
+
+    const selectImage = (
+      <RoundedButton onPress={this.uploadImage}>
+        Select image
+      </RoundedButton>
+    );
+
+    let content;
+    if (image) {
+      const uploadButtons = (
+        <View>
+          <RoundedButton onPress={this.submit}>
+            Submit
+          </RoundedButton>
+          <RoundedButton onPress={this.cancel}>
+          Cancel
+          </RoundedButton>
+        </View>
+      );
+      const uploadingIndicator = (
+        <View style={styles.loading_container}>
+          <ActivityIndicator size="large" color="#abadb1" />
+        </View>
+      );
+      content = (
+        <View>
+          <View
+            style={{
+              padding: 16,
+            }}
+          >
+            <FastImage
+              style={{
+                width: '100%',
+                height: 160,
+              }}
+              source={{
+                uri: image.uri,
+              }}
+            />
+          </View>
+          {uploading ? uploadingIndicator : uploadButtons}
+        </View>
+      );
+    } else {
+      content = selectImage;
+    }
 
     return (
       <SafeAreaView style={styles.mainContainer}>
@@ -106,36 +161,7 @@ export default class BappItemAdd extends Component {
           </Transition>
         </Card>
         <ScrollView style={styles.container}>
-          {!image && (
-          <RoundedButton onPress={this.uploadImage}>
-            Select image
-          </RoundedButton>
-          )}
-          {!!image && (
-            <View>
-              <View
-                style={{
-                  padding: 16,
-                }}
-              >
-                <FastImage
-                  style={{
-                    width: '100%',
-                    height: 160,
-                  }}
-                  source={{
-                    uri: image.uri,
-                  }}
-                />
-              </View>
-              <RoundedButton onPress={this.submit}>
-                Submit
-              </RoundedButton>
-              <RoundedButton onPress={this.cancel}>
-                Cancel
-              </RoundedButton>
-            </View>
-          )}
+          {content}
         </ScrollView>
       </SafeAreaView>
     );

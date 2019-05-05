@@ -21,9 +21,29 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   list_card: {
+    flex: 0,
+    height: 152, // 120 + 2*16
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    backgroundColor: 'white',
+    borderRadius: 12,
+    borderWidth: 0,
+    borderColor: 'white',
+    marginLeft: 16,
+    marginRight: 16,
+    marginTop: 16,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 8,
+  },
+  list_card_content: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
   },
   listItems_container: {
     flex: 1,

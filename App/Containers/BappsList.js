@@ -88,50 +88,35 @@ export default class BappsList extends Component {
 
     let content = (
       <View style={styles.loading_container}>
-        <ActivityIndicator size="large" color="#abadb1" />
+        <ActivityIndicator size="large" color="#e1f6f4" />
       </View>
     );
     if (bappsReady && creditsReady) {
       content = (
         <ScrollView style={styles.container}>
-          <View style={{ flex: 1, alignItems: 'center' }}>
-            <View style={{ flexDirection: 'row', flex: 0, alignItems: 'center' }}>
-              <FastImage
-                style={{
-                  width: 60,
-                  height: 60,
-                }}
-                source={coverPhoto}
-              />
-              <Text style={{
-                fontSize: 40,
-                color: '#e1f6f4',
-              }}
-              >
-                Bapps
-              </Text>
-            </View>
-          </View>
           {bapps.map((bapp) => {
             return (
-              <TouchableOpacity
-                key={bapp.txId}
-                onPress={this.openListScreen.bind(this, bapp)}
-              >
-                <Card style={styles.list_card}>
-                  <Transition shared={`bapp-logo-${bapp.txId}`}>
-                    <FastImage
-                      style={{
-                        width: '100%',
-                        height: 120,
-                      }}
-                      source={{
-                        uri: bapp.definition.logo,
-                      }}
-                    />
-                  </Transition>
-                </Card>
-              </TouchableOpacity>
+              <View style={styles.list_card}>
+                <TouchableOpacity
+                  key={bapp.txId}
+                  onPress={this.openListScreen.bind(this, bapp)}
+                  style={{ flex: 1 }}
+                >
+                  <View style={styles.list_card_content}>
+                    <Transition shared={`bapp-logo-${bapp.txId}`}>
+                      <FastImage
+                        style={{
+                          width: '100%',
+                          height: 120,
+                        }}
+                        source={{
+                          uri: bapp.definition.logo,
+                        }}
+                      />
+                    </Transition>
+                  </View>
+                </TouchableOpacity>
+              </View>
             );
           })}
 
@@ -143,6 +128,29 @@ export default class BappsList extends Component {
 
     return (
       <SafeAreaView style={styles.mainContainer}>
+        <View style={{
+          marginTop: 16,
+          marginLeft: 16,
+          flexDirection: 'row',
+          flex: 0,
+          alignItems: 'center',
+        }}
+        >
+          <FastImage
+            style={{
+              width: 60,
+              height: 60,
+            }}
+            source={coverPhoto}
+          />
+          <Text style={{
+            fontSize: 40,
+            color: '#e1f6f4',
+          }}
+          >
+            Bapps
+          </Text>
+        </View>
         {content}
         <Overlay
           isVisible={buyCreditsVisible}

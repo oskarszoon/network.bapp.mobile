@@ -25,7 +25,7 @@ export default class LaunchScreen extends Component {
     return (
       <SafeAreaView style={styles.mainContainer}>
         <View style={styles.loading_container}>
-          <ActivityIndicator size="large" color="#abadb1" />
+          <ActivityIndicator size="large" color="#e1f6f4" />
         </View>
       </SafeAreaView>
     );

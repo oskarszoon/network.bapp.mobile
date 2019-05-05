@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -56,6 +57,7 @@
 		AF59698968E74438A5085323 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4EB1B26747B40BD8CA9E069 /* MaterialIcons.ttf */; };
 		BF29B91EBFF7441DB00134C7 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC0729EDA2294ED9AEDBA5A7 /* Ionicons.ttf */; };
 		C4A6720E6FF44C98A63A9952 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8DE2AB34D61492C9E9DB2DC /* FontAwesome.ttf */; };
+		C7C85C3E75334BFE958C31DA /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E8B77DF8F5471B99F9A03A /* libRCTImageResizer.a */; };
 		CC236EEEF6B44FBEA7CA34F6 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4606B933FACF46EB8D1BF73A /* libSplashScreen.a */; };
 		D59788C36B0940CD93FE6550 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C12475A4D56F4C9B870A5380 /* AntDesign.ttf */; };
 		DAB5151753AF4F588EA37879 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63E381614E76454EBC345BA9 /* FontAwesome5_Solid.ttf */; };
@@ -67,7 +69,6 @@
 		ED4EB580418C4A8FB879A054 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC91345D4657420C9B7022BE /* Feather.ttf */; };
 		FCDE8F30892D49E2AB8C809F /* libRNRandomBytes-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 187FA7CE04D942A5A89C16FE /* libRNRandomBytes-tvOS.a */; };
 		FCFC562EA1B641F4BD7A62C2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B154BE5020B4FC9B209D6E8 /* Octicons.ttf */; };
-		C7C85C3E75334BFE958C31DA /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E8B77DF8F5471B99F9A03A /* libRCTImageResizer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -463,6 +464,7 @@
 		00E356F21AD99517003FC87E /* BappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BappTests.m; sourceTree = "<group>"; };
 		021F94BF6395417C891E0CCF /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
 		0FC9C78855DA4F04A7E1FDCB /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
+		133F41598195460DAB09A4A9 /* RCTImageResizer.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTImageResizer.xcodeproj; path = "../node_modules/react-native-image-resizer/ios/RCTImageResizer.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139548E1C50D49AABD4608AD /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 		63E381614E76454EBC345BA9 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		6F11650A932442FDA79128D2 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		6FAE9F6172ED45FDB6A25F84 /* libRNRandomBytes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRandomBytes.a; sourceTree = "<group>"; };
+		73E8B77DF8F5471B99F9A03A /* libRCTImageResizer.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTImageResizer.a; sourceTree = "<group>"; };
 		76A494DE0B7F4E87A94E322D /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		81DA33510F1E4BF8B0D26FBC /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
@@ -518,8 +521,6 @@
 		FEA6322EB83A40EEA216002C /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		FEC8FE9945DE4C598B99A4D9 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		FFE39B7DC240491D8808EF21 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
-		133F41598195460DAB09A4A9 /* RCTImageResizer.xcodeproj */ = {isa = PBXFileReference; name = "RCTImageResizer.xcodeproj"; path = "../node_modules/react-native-image-resizer/ios/RCTImageResizer.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		73E8B77DF8F5471B99F9A03A /* libRCTImageResizer.a */ = {isa = PBXFileReference; name = "libRCTImageResizer.a"; path = "libRCTImageResizer.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -742,6 +743,7 @@
 				4606B933FACF46EB8D1BF73A /* libSplashScreen.a */,
 				6FAE9F6172ED45FDB6A25F84 /* libRNRandomBytes.a */,
 				187FA7CE04D942A5A89C16FE /* libRNRandomBytes-tvOS.a */,
+				73E8B77DF8F5471B99F9A03A /* libRCTImageResizer.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
